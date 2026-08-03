@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Complete Mind Reset Bundle — Vinyan Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy-deep:#0a0f1c; --navy:#0f1729; --navy-soft:#16213a;
+    --gold:#c9a227; --gold-light:#e8c766;
+    --paper:#f4f0e6; --ink-soft:#9aa5bd; --line: rgba(201,162,39,0.18);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--navy-deep); color:var(--paper); font-family:'Inter',sans-serif; overflow-x:hidden; -webkit-font-smoothing:antialiased;}
+  h1,h2,h3{font-family:'Fraunces',serif; font-weight:500; letter-spacing:-0.01em;}
+  .mono{font-family:'IBM Plex Mono',monospace; letter-spacing:0.08em; text-transform:uppercase;}
+  a{color:inherit; text-decoration:none;}
+  .wrap{max-width:1080px; margin:0 auto; padding:0 24px;}
+  :focus-visible{outline:2px solid var(--gold-light); outline-offset:3px;}
+
+  #rippleCanvas{position:absolute; inset:0; width:100%; height:100%; opacity:0.5;}
+  .hero{position:relative; min-height:96vh; display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center; padding:120px 24px 80px; background:radial-gradient(ellipse at 50% 0%, #131c30 0%, var(--navy-deep) 65%); overflow:hidden;}
+  .hero-mark{z-index:2; margin-bottom:22px; overflow:visible;}
+  .hero-mark .mark-ring{transform-origin:60px 60px; animation:markSpin 40s linear infinite;}
+  .hero-mark .mark-ring-2{animation-duration:26s; animation-direction:reverse;}
+  .hero-mark .mark-breath{animation:markBreathe 5s ease-in-out infinite;}
+  @keyframes markSpin{ to{ transform:rotate(360deg); } }
+  @keyframes markBreathe{ 0%,100%{opacity:0.55;} 50%{opacity:1;} }
+  .badge{display:inline-flex; align-items:center; gap:10px; font-size:12px; color:var(--gold-light);
+    border:1px solid var(--line); border-radius:100px; padding:8px 18px; margin-bottom:28px; background:rgba(201,162,39,0.06); z-index:2;}
+  .badge .dot{width:6px;height:6px;border-radius:50%;background:var(--gold); box-shadow:0 0 8px var(--gold);}
+  .hero h1{font-size:clamp(32px, 5.4vw, 60px); line-height:1.08; max-width:880px; z-index:2; color:#fbf9f4;}
+  .hero h1 em{font-style:italic; color:var(--gold-light);}
+  .hero p.sub{max-width:600px; margin:24px auto 0; color:var(--ink-soft); font-size:17px; line-height:1.6; z-index:2;}
+  .hero-ctas{z-index:2; display:flex; gap:14px; flex-wrap:wrap; justify-content:center; margin-top:36px;}
+  .btn{display:inline-flex; align-items:center; gap:8px; font-weight:600; font-size:15px; padding:16px 28px; border-radius:8px;
+    border:none; cursor:pointer; transition:transform .25s ease, box-shadow .25s ease;}
+  .btn-gold{background:linear-gradient(180deg, var(--gold-light), var(--gold)); color:#1a1406; box-shadow:0 8px 30px rgba(201,162,39,0.25);}
+  .btn-gold:hover{transform:translateY(-2px); box-shadow:0 12px 40px rgba(201,162,39,0.4);}
+  .btn-outline{background:transparent; color:var(--gold-light); border:1px solid var(--line);}
+  .btn-outline:hover{border-color:var(--gold); transform:translateY(-2px);}
+  .hero-note{margin-top:16px; font-size:12px; color:#66708a; z-index:2;}
+
+  .section{padding:96px 24px;}
+  .section.dark2{background:var(--navy);}
+  .eyebrow{color:var(--gold); font-size:12px; margin-bottom:14px; display:block;}
+  .center{text-align:center;}
+  .section h2{font-size:clamp(26px,4vw,40px); margin-bottom:10px;}
+  .section .lede{color:var(--ink-soft); max-width:600px; margin:0 auto 50px; font-size:15px; line-height:1.6;}
+
+  /* stack */
+  .stack-section{padding:110px 24px; text-align:center; perspective:1400px;}
+  .stack{position:relative; max-width:780px; margin:64px auto 0; height:520px;}
+  .card{position:absolute; left:50%; top:50%; width:min(86vw,540px); background:linear-gradient(160deg, #182236, #10182a);
+    border:1px solid var(--line); border-radius:14px; padding:26px 28px; box-shadow:0 30px 60px rgba(0,0,0,0.45);
+    text-align:left; transform-style:preserve-3d; transition:transform .9s cubic-bezier(.2,.8,.2,1);}
+  .card .tag{font-size:11px; color:var(--gold); margin-bottom:8px;}
+  .card h3{font-size:20px; color:#fbf9f4; margin-bottom:6px;}
+  .card p{font-size:13.5px; color:var(--ink-soft); line-height:1.55;}
+  .card .val{position:absolute; top:22px; right:24px; font-family:'Fraunces',serif; color:var(--gold-light); font-size:16px;}
+
+  /* bonus grid */
+  .bonus-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:22px; max-width:960px; margin:0 auto;}
+  .bonus-card{border:1px solid var(--line); border-radius:12px; padding:24px; background:var(--navy-soft);}
+  .bonus-card .icon{font-size:22px; margin-bottom:12px;}
+  .bonus-card h3{font-size:16px; color:#fbf9f4; margin-bottom:8px;}
+  .bonus-card p{font-size:13px; color:var(--ink-soft); line-height:1.55;}
+  .bonus-card .pp{margin-top:10px; font-size:11px; color:var(--gold);}
+
+  /* trackers strip */
+  .tracker-strip{display:flex; flex-wrap:wrap; gap:14px; justify-content:center; max-width:900px; margin:0 auto;}
+  .tracker-pill{border:1px solid var(--line); border-radius:100px; padding:10px 20px; font-size:13px; color:#e6e3d8; background:rgba(201,162,39,0.05);}
+
+  /* license cards */
+  .license-grid{display:grid; grid-template-columns:1fr 1fr; gap:28px; max-width:980px; margin:0 auto; align-items:stretch;}
+  @media (max-width:760px){ .license-grid{grid-template-columns:1fr;} }
+  .license-card{border:1px solid var(--line); border-radius:16px; padding:38px 34px; background:var(--navy-soft); display:flex; flex-direction:column;}
+  .license-card.featured{border-color:var(--gold); background:linear-gradient(160deg, #1a2438, #10182a); position:relative;}
+  .license-card.featured::before{content:'MOST POPULAR'; position:absolute; top:-12px; left:34px; background:var(--gold);
+    color:#1a1406; font-size:10px; font-weight:700; letter-spacing:0.08em; padding:5px 12px; border-radius:100px;}
+  .license-card .ltag{font-size:12px; color:var(--gold); margin-bottom:10px;}
+  .license-card h3{font-size:24px; color:#fbf9f4; margin-bottom:6px;}
+  .license-card .lprice{font-family:'Fraunces',serif; font-size:38px; color:var(--gold-light); margin:14px 0 4px;}
+  .license-card .lprice span{font-size:14px; color:var(--ink-soft); font-family:'Inter',sans-serif;}
+  .license-card .ldesc{font-size:13.5px; color:var(--ink-soft); margin-bottom:20px; line-height:1.6;}
+  .license-list{list-style:none; margin-bottom:24px; flex-grow:1;}
+  .license-list li{font-size:13.5px; color:#d8dae6; padding:8px 0; padding-left:22px; position:relative; border-bottom:1px solid var(--line);}
+  .license-list li:last-child{border-bottom:none;}
+  .license-list li::before{content:'\2713'; position:absolute; left:0; color:var(--gold); font-weight:700;}
+  .license-card .btn{width:100%; justify-content:center;}
+  .switch-note{font-size:12px; color:#6f7994; text-align:center; margin-top:14px;}
+  .switch-note a{color:var(--gold-light); border-bottom:1px solid var(--line);}
+
+  /* why grid */
+  .why-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:24px; max-width:960px; margin:0 auto;}
+  .why-card{border:1px solid var(--line); border-radius:12px; padding:26px; background:var(--navy-soft);}
+  .why-card .num{font-family:'IBM Plex Mono',monospace; color:var(--gold); font-size:12px; margin-bottom:12px;}
+  .why-card h3{font-size:16px; color:#fbf9f4; margin-bottom:8px;}
+  .why-card p{font-size:13px; color:var(--ink-soft); line-height:1.6;}
+
+  /* pattern cards */
+  .pattern-note{max-width:620px; margin:0 auto 34px; text-align:center; font-size:12.5px; color:#6f7994;
+    border:1px dashed var(--line); padding:12px 16px; border-radius:8px;}
+  .pattern-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(270px,1fr)); gap:22px; max-width:900px; margin:0 auto;}
+  .pattern-card{background:var(--navy-soft); border:1px solid var(--line); border-radius:12px; padding:24px;}
+  .pattern-card .q{font-family:'Fraunces',serif; font-style:italic; font-size:16px; color:#e6e3d8; line-height:1.5;}
+  .pattern-card .who{margin-top:12px; font-size:11px; color:var(--ink-soft);}
+
+  /* guarantee */
+  .guarantee{max-width:640px; margin:0 auto; text-align:center; border:1px solid var(--line); border-radius:16px; padding:44px 32px;
+    background:radial-gradient(ellipse at 50% 0%, rgba(201,162,39,0.08), transparent 70%);}
+  .guarantee .seal{width:64px; height:64px; border-radius:50%; border:1px solid var(--gold); display:flex; align-items:center;
+    justify-content:center; margin:0 auto 18px; font-family:'Fraunces',serif; font-size:20px; color:var(--gold-light);}
+  .guarantee h3{font-size:21px; margin-bottom:12px;}
+  .guarantee p{color:var(--ink-soft); font-size:14px; line-height:1.7;}
+
+  /* faq tabs */
+  .faq-tabs{display:flex; gap:10px; justify-content:center; margin-bottom:34px;}
+  .faq-tab{font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:0.06em; text-transform:uppercase;
+    padding:10px 20px; border-radius:100px; border:1px solid var(--line); background:transparent; color:var(--ink-soft); cursor:pointer; transition:all .25s ease;}
+  .faq-tab.active{border-color:var(--gold); color:var(--gold-light); background:rgba(201,162,39,0.08);}
+  .faq-panel{display:none; max-width:720px; margin:0 auto;}
+  .faq-panel.active{display:block;}
+  .faq-item{border-bottom:1px solid var(--line);}
+  .faq-q{display:flex; justify-content:space-between; align-items:center; padding:20px 4px; cursor:pointer; font-size:15px; color:#fbf9f4; font-weight:500;}
+  .faq-q .plus{color:var(--gold); transition:transform .3s ease; font-size:19px;}
+  .faq-item.open .faq-q .plus{transform:rotate(45deg);}
+  .faq-a{max-height:0; overflow:hidden; transition:max-height .4s ease;}
+  .faq-a p{padding:0 4px 20px; color:var(--ink-soft); font-size:13.5px; line-height:1.6;}
+
+  .final{text-align:center; padding:110px 24px 130px; background:radial-gradient(ellipse at 50% 100%, #131c30, var(--navy-deep) 70%);}
+  .final h2{font-size:clamp(26px,4vw,38px); max-width:600px; margin:0 auto 16px;}
+  .final p{color:var(--ink-soft); margin-bottom:30px;}
+  .final .hero-ctas{margin-top:0;}
+
+  footer{padding:40px 24px; text-align:center; border-top:1px solid var(--line);}
+  footer p{font-size:12px; color:#5a6178;}
+
+  .reveal{opacity:0; transform:translateY(22px); transition:opacity .7s ease, transform .7s ease;}
+  .reveal.in{opacity:1; transform:translateY(0);}
+
+  @media (prefers-reduced-motion:reduce){ *{transition:none !important; animation:none !important;}
+    .hero-mark .mark-ring, .hero-mark .mark-breath{animation:none !important;} }
+</style>
+</head>
+<body>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <canvas id="rippleCanvas"></canvas>
+  <svg class="hero-mark" width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <circle cx="60" cy="60" r="52" stroke="#2a3550" stroke-width="1"/>
+    <circle cx="60" cy="60" r="38" stroke="#3a4560" stroke-width="1" class="mark-ring mark-ring-1"/>
+    <circle cx="60" cy="60" r="24" stroke="#c9a227" stroke-width="1" opacity="0.5" class="mark-ring mark-ring-2"/>
+    <path d="M70 40a22 22 0 1 0 12 30 17 17 0 0 1-12-30Z" fill="#e8c766"/>
+    <path d="M32 82c4-3 8-3 12 0s8 3 12 0 8-3 12 0 8 3 12 0" stroke="#c9a227" stroke-width="1.4" stroke-linecap="round" class="mark-breath"/>
+  </svg>
+  <span class="badge"><span class="dot"></span> 8 GUIDES &middot; 4 BONUS COMPANIONS &middot; 4 NOTION TRACKERS</span>
+  <h1>Finally quiet your mind,<br>sleep deep, and stop <em>overthinking</em></h1>
+  <p class="sub">One complete system for the nights racing thoughts won't let you rest. Use it for yourself, or license it to sell under your own store — your call.</p>
+  <div class="hero-ctas">
+    <button class="btn btn-gold" onclick="location.href='#license'">Get Personal Use — $97</button>
+    <button class="btn btn-outline" onclick="location.href='#license'">Get Resell Rights — $197</button>
+  </div>
+  <div class="hero-note">Instant download &middot; Secure checkout via Gumroad</div>
+</section>
+
+<!-- ============ 3D STACK: CORE GUIDES ============ -->
+<section class="stack-section">
+  <span class="eyebrow mono">The core system</span>
+  <h2>Four guides. One system.</h2>
+  <p class="lede" style="margin-bottom:0;">Move your cursor over the stack — this is how they come together.</p>
+  <div class="stack" id="stack">
+    <div class="card" data-i="0">
+      <span class="val">42pp</span>
+      <span class="tag mono">01 &middot; Overthinker's Toolkit</span>
+      <h3>Stop the mental loops</h3>
+      <p>15 tools across 4 parts, a 30-day thought journal, and 4 real-scenario walkthroughs.</p>
+    </div>
+    <div class="card" data-i="1">
+      <span class="val">39pp</span>
+      <span class="tag mono">02 &middot; Anxiety Relief Program</span>
+      <h3>12 weeks, phase by phase</h3>
+      <p>4 phases, 24 worksheets, and an emergency calming toolkit for the moments anxiety spikes.</p>
+    </div>
+    <div class="card" data-i="2">
+      <span class="val">38pp</span>
+      <span class="tag mono">03 &middot; Sleep &amp; Insomnia Reset</span>
+      <h3>Fall asleep faster</h3>
+      <p>A full wind-down system, 5 breathing scripts, and a 14-night tracker.</p>
+    </div>
+    <div class="card" data-i="3">
+      <span class="val">39pp</span>
+      <span class="tag mono">04 &middot; Mental Clarity Guide</span>
+      <h3>Think clearly again</h3>
+      <p>An 8-drain fog audit, an 8-tool focus system, and a 7-day protocol.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BONUS COMPANIONS ============ -->
+<section class="section dark2">
+  <div class="wrap center">
+    <span class="eyebrow mono">Built for the actual moment</span>
+    <h2 style="margin-bottom:10px;">Four bonus companions</h2>
+    <p class="lede">Fast, scannable pages designed to be opened mid-spiral — not read cover to cover.</p>
+    <div class="bonus-grid">
+      <div class="bonus-card reveal">
+        <div class="icon">&#127762;</div>
+        <h3>The 3AM Companion</h3>
+        <p>13 specific late-night spirals, each with a 60-second response.</p>
+        <div class="pp mono">23pp</div>
+      </div>
+      <div class="bonus-card reveal">
+        <div class="icon">&#128167;</div>
+        <h3>Panic First-Aid Companion</h3>
+        <p>Setting-by-setting protocols, plus a medical red-flag safety page.</p>
+        <div class="pp mono">21pp</div>
+      </div>
+      <div class="bonus-card reveal">
+        <div class="icon">&#127769;</div>
+        <h3>Sleep Cheat Sheet Companion</h3>
+        <p>Jet lag, shift work, travel fixes, and a 5-minute emergency wind-down.</p>
+        <div class="pp mono">20pp</div>
+      </div>
+      <div class="bonus-card reveal">
+        <div class="icon">&#127919;</div>
+        <h3>Focus Sprint Companion</h3>
+        <p>10 situation-specific sprints, from low-energy days to deadline crunch.</p>
+        <div class="pp mono">20pp</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ NOTION TRACKERS ============ -->
+<section class="section">
+  <div class="wrap center">
+    <span class="eyebrow mono">Track it where you already work</span>
+    <h2 style="margin-bottom:36px;">4 direct-import Notion trackers</h2>
+    <div class="tracker-strip">
+      <span class="tracker-pill">30-Day Thought Journal</span>
+      <span class="tracker-pill">12-Week Anxiety Tracker</span>
+      <span class="tracker-pill">14-Night Sleep Log</span>
+      <span class="tracker-pill">7-Day Clarity Protocol</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CHOOSE YOUR LICENSE ============ -->
+<section class="section dark2" id="license">
+  <div class="wrap">
+    <div class="center">
+      <span class="eyebrow mono">Two ways in</span>
+      <h2>Choose Your License</h2>
+      <p class="lede">Same complete system. One license is for using it — the other is for selling it.</p>
+    </div>
+    <div class="license-grid">
+      <div class="license-card reveal">
+        <div class="ltag mono">For yourself</div>
+        <h3>Personal Use</h3>
+        <div class="lprice">$97 <span>one-time</span></div>
+        <p class="ldesc">Everything you need to actually use the system — for less than one therapy session.</p>
+        <ul class="license-list">
+          <li>All 4 core guides (158pp)</li>
+          <li>All 4 bonus companions (84pp)</li>
+          <li>4 direct-import Notion trackers</li>
+          <li>7-Day Peace of Mind guarantee</li>
+          <li>For your own personal use</li>
+        </ul>
+        <button class="btn btn-gold" onclick="window.open('https://vinyan.gumroad.com/l/ejiyq','_blank')">Get Personal Use — $97</button>
+        <div class="switch-note">Want to resell it instead? <a href="#license">See Resell Rights &rarr;</a></div>
+      </div>
+      <div class="license-card featured reveal">
+        <div class="ltag mono">For resellers</div>
+        <h3>Resell Rights</h3>
+        <div class="lprice">$197 <span>one-time</span></div>
+        <p class="ldesc">A complete, branded catalog you sell under your own store — keep 100% of every sale.</p>
+        <ul class="license-list">
+          <li>Everything in Personal Use</li>
+          <li>Full commercial resale license</li>
+          <li>Branding &amp; listing guidance</li>
+          <li>Suggested pricing &amp; break-even math</li>
+          <li>Break even in 2&ndash;3 resales</li>
+        </ul>
+        <button class="btn btn-gold" onclick="window.open('https://vinyan.gumroad.com/l/fhpfg','_blank')">Get Resell Rights — $197</button>
+        <div class="switch-note">Just want it for yourself? <a href="#license">See Personal Use &rarr;</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WHY IT WORKS ============ -->
+<section class="section">
+  <div class="wrap center">
+    <span class="eyebrow mono">Why it works</span>
+    <h2>Built for 2am, not a classroom</h2>
+    <div class="why-grid">
+      <div class="why-card reveal">
+        <div class="num">01</div>
+        <h3>Structure over motivation</h3>
+        <p>No pep talks. Step-by-step pages you work through one at a time, whether you feel like it or not.</p>
+      </div>
+      <div class="why-card reveal">
+        <div class="num">02</div>
+        <h3>Built for the actual moment</h3>
+        <p>The bonus companions are designed to be opened mid-spiral, not scheduled for later.</p>
+      </div>
+      <div class="why-card reveal">
+        <div class="num">03</div>
+        <h3>Four systems, not one guide</h3>
+        <p>Overthinking, anxiety, sleep, and focus each get their own framework — because they feed each other.</p>
+      </div>
+      <div class="why-card reveal">
+        <div class="num">04</div>
+        <h3>Instant, either way</h3>
+        <p>PDFs to your inbox, trackers straight into Notion. Start using it — or selling it — today.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BUYER PATTERNS ============ -->
+<section class="section dark2">
+  <div class="wrap center">
+    <span class="eyebrow mono">What buyers tend to report</span>
+    <h2 style="margin-bottom:20px;">Common feedback patterns</h2>
+    <p class="pattern-note">Replace this block with your own verified reviews as they come in — placeholder patterns shown below, not attributed to named individuals.</p>
+    <div class="pattern-grid">
+      <div class="pattern-card reveal">
+        <p class="q">"Used the breathing script the first night. Fell asleep faster than I expected."</p>
+        <div class="who">&mdash; reported by early buyers</div>
+      </div>
+      <div class="pattern-card reveal">
+        <p class="q">"The thought journal gave me somewhere to put the loop instead of just replaying it."</p>
+        <div class="who">&mdash; reported by early buyers</div>
+      </div>
+      <div class="pattern-card reveal">
+        <p class="q">"Bought the resell rights and had it listed in my store the same afternoon."</p>
+        <div class="who">&mdash; reported by early resellers</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ GUARANTEE ============ -->
+<section class="section">
+  <div class="wrap">
+    <div class="guarantee reveal">
+      <div class="seal">7d</div>
+      <h3>7-Day Peace of Mind Guarantee</h3>
+      <p>Personal Use purchases are covered for 7 days &mdash; use everything, and if you don't feel calmer, sleep better, or think more clearly, email me for a full refund, no questions asked. Resell Rights is a commercial license: like most resale-rights products, it's sold as-is once downloaded, since the license itself can't be "returned" after use.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="section dark2">
+  <div class="wrap">
+    <div class="center">
+      <span class="eyebrow mono">Questions</span>
+      <h2 style="margin-bottom:10px;">Before you buy</h2>
+    </div>
+    <div class="faq-tabs">
+      <button class="faq-tab active" data-tab="personal">Personal Use</button>
+      <button class="faq-tab" data-tab="resell">Resell Rights</button>
+    </div>
+
+    <div class="faq-panel active" id="panel-personal">
+      <div class="faq-item">
+        <div class="faq-q">Is this a video course? <span class="plus">+</span></div>
+        <div class="faq-a"><p>No &mdash; PDFs plus Notion trackers, built to be used on your phone or desktop, no video required.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">How long until I notice a difference? <span class="plus">+</span></div>
+        <div class="faq-a"><p>Varies by person &mdash; many people feel a shift within the first week of consistent use. This isn't a guarantee, just what's typical.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Can I buy these separately? <span class="plus">+</span></div>
+        <div class="faq-a"><p>Individually the guides and bonuses total $348. This bundle is $97.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Is this a replacement for therapy? <span class="plus">+</span></div>
+        <div class="faq-a"><p>No. These are self-guided tools for everyday overthinking, anxiety, sleep, and focus &mdash; not a substitute for professional mental health or medical care. If you're in crisis, please reach out to a licensed professional or local crisis line first.</p></div>
+      </div>
+    </div>
+
+    <div class="faq-panel" id="panel-resell">
+      <div class="faq-item">
+        <div class="faq-q">Do I need a store already set up? <span class="plus">+</span></div>
+        <div class="faq-a"><p>No &mdash; but you'll need somewhere to sell it (Gumroad, Whop, your own site). Gumroad takes about ten minutes to set up.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Is this Master Resell Rights? <span class="plus">+</span></div>
+        <div class="faq-a"><p>No. You can resell the product to end customers; you cannot resell the rights themselves. Your customers receive the Personal Use license.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Can I edit the guides? <span class="plus">+</span></div>
+        <div class="faq-a"><p>Core content, worksheets, and safety language stay as delivered. You can add your own bonus material and write your own sales copy and branding.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Is there ongoing support? <span class="plus">+</span></div>
+        <div class="faq-a"><p>This is a one-time purchase with no recurring fee or revenue share &mdash; licensing questions are supported by email.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FINAL CTA ============ -->
+<section class="final">
+  <h2>Pick your path, start today</h2>
+  <p>Same complete system &middot; instant download either way</p>
+  <div class="hero-ctas">
+    <button class="btn btn-gold" onclick="window.open('https://vinyan.gumroad.com/l/ejiyq','_blank')">Personal Use — $97</button>
+    <button class="btn btn-outline" onclick="window.open('https://vinyan.gumroad.com/l/fhpfg','_blank')">Resell Rights — $197</button>
+  </div>
+</section>
+
+<footer>
+  <p>COMPLETE MIND RESET BUNDLE &middot; Vinyan Studio</p>
+</footer>
+
+<script>
+// ---------- ripple canvas ----------
+const canvas = document.getElementById('rippleCanvas');
+const ctx = canvas.getContext('2d');
+let w,h,dpr;
+function resize(){
+  dpr = window.devicePixelRatio||1;
+  w = canvas.offsetWidth; h = canvas.offsetHeight;
+  canvas.width = w*dpr; canvas.height = h*dpr;
+  ctx.setTransform(dpr,0,0,dpr,0,0);
+}
+window.addEventListener('resize', resize);
+resize();
+
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+let ripples = [];
+function spawnRipple(x,y){ ripples.push({x,y,r:0,alpha:0.5}); }
+spawnRipple(w/2, h*0.5);
+setInterval(()=>{ spawnRipple(w/2 + (Math.random()-0.5)*140, h*0.5 + (Math.random()-0.5)*70); }, 2600);
+
+function draw(){
+  ctx.clearRect(0,0,w,h);
+  ripples.forEach(rp=>{
+    rp.r += reduceMotion? 0 : 0.9;
+    rp.alpha -= 0.0022;
+    if(rp.alpha>0){
+      ctx.beginPath();
+      ctx.arc(rp.x, rp.y, rp.r, 0, Math.PI*2);
+      ctx.strokeStyle = `rgba(201,162,39,${rp.alpha})`;
+      ctx.lineWidth = 1.2;
+      ctx.stroke();
+    }
+  });
+  ripples = ripples.filter(rp=> rp.alpha>0 && rp.r < Math.max(w,h));
+  requestAnimationFrame(draw);
+}
+draw();
+
+// ---------- scroll reveal ----------
+const io = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('in'); });
+},{threshold:0.2});
+document.querySelectorAll('.reveal').forEach(el=> io.observe(el));
+
+// ---------- 3D card stack ----------
+const stack = document.getElementById('stack');
+const cards = document.querySelectorAll('.card');
+const layout = [
+  {x:-160, y:-70, rot:-8, scale:0.94, z:0},
+  {x:-40,  y:-10, rot:-2, scale:0.98, z:10},
+  {x:60,   y:30,  rot:3,  scale:1.0,  z:20},
+  {x:150,  y:80,  rot:8,  scale:0.94, z:5}
+];
+function applyLayout(mx,my){
+  cards.forEach((c,i)=>{
+    const L = layout[i];
+    const px = L.x + (mx||0)*10;
+    const py = L.y + (my||0)*8;
+    c.style.transform = `translate(-50%,-50%) translate(${px}px, ${py}px) rotate(${L.rot + (mx||0)*2}deg) scale(${L.scale})`;
+    c.style.zIndex = L.z;
+  });
+}
+applyLayout(0,0);
+if(!reduceMotion){
+  stack.addEventListener('mousemove', e=>{
+    const rect = stack.getBoundingClientRect();
+    const mx = ((e.clientX-rect.left)/rect.width - 0.5);
+    const my = ((e.clientY-rect.top)/rect.height - 0.5);
+    applyLayout(mx,my);
+  });
+  stack.addEventListener('mouseleave', ()=> applyLayout(0,0));
+}
+
+// ---------- faq accordion ----------
+document.querySelectorAll('.faq-item').forEach(item=>{
+  const q = item.querySelector('.faq-q');
+  const a = item.querySelector('.faq-a');
+  q.addEventListener('click', ()=>{
+    const isOpen = item.classList.contains('open');
+    item.closest('.faq-panel').querySelectorAll('.faq-item').forEach(i=>{ i.classList.remove('open'); i.querySelector('.faq-a').style.maxHeight=null; });
+    if(!isOpen){ item.classList.add('open'); a.style.maxHeight = a.scrollHeight+'px'; }
+  });
+});
+
+// ---------- faq tabs ----------
+document.querySelectorAll('.faq-tab').forEach(tab=>{
+  tab.addEventListener('click', ()=>{
+    document.querySelectorAll('.faq-tab').forEach(t=>t.classList.remove('active'));
+    document.querySelectorAll('.faq-panel').forEach(p=>p.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById('panel-'+tab.dataset.tab).classList.add('active');
+  });
+});
+</script>
+</body>
+</html>
